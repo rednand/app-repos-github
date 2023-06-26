@@ -1,16 +1,8 @@
-<h1 align="center">
-    <img alt="FicandoOnline" title="#FicandoOnline" src=".images/header.jpg" width="100%" />
-</h1>
 
 <h4 align="center"> 
-	AluraHub 
+	App repositórios Github 
 </h4>
 
-<p align="center">
-  <a href="#information_source-o-que-é-o-ficando-online">O que é o AluraHub?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#rocket-Tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-</p>
 
 ## :information_source: O que é o AluraHub?
 
