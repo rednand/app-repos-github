@@ -21,7 +21,7 @@ _____
 
 [https://expo.dev/@rednand/githubrepos](https://expo.dev/@rednand/githubrepos)
 
-* é necessário possuir o aplicativo do Expo instalado
+###### OBS: é necessário possuir o aplicativo do Expo instalado
 
 
 _____
