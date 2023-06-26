@@ -14,11 +14,17 @@ Esse projeto é utilizado no curso 4 da formação base de React Native da plata
 
 Foram feiras alterações nele, para mostrar algumas informações a mais que o curso propunha, como descrição e tópicos.
 
-<h1 align="center">
-    <img alt="Demonstracao" title="Demonstracao" src=".images/ficando-online-newdesign.gif" width="400px" />
-</h1>
+_____
 
-## :rocket: Tecnologias
+### Deploy
+<p>O aplicativo está na loja do Expo no link:</p>
+
+[exp://exp.host/@rednand/githubrepos?release-channel=default](exp://exp.host/@rednand/githubrepos?release-channel=default)
+
+
+_____
+
+### :rocket: Tecnologias
 
 Esse projeto foi desenvolvido com a utilização das seguintes tecnologias:
 - [React Native][rn]
