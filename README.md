@@ -1,10 +1,10 @@
 
 <h4 align="center"> 
-	App repositórios Github 
+	App repositórios do Github 
 </h4>
 
 
-## :information_source: O que é o AluraHub?
+## :information_source: O que é?
 
 O AluraHub é uma aplicação feita em React Native que permite buscar um perfil do github (API) e ver os repositórios do usuário buscado.
 
@@ -51,8 +51,6 @@ $ npm install
 $ expo start
 ```
 
-
-Espero que você utilize ao máximo deste projeto para se aprimorar! E se quiser dar um salve, estou lá no LinkedIn [André Oliveira Cunha](https://www.linkedin.com/in/andr%C3%A9-oliveira-cunha-b26b3a156/). :wave: 
 
 [nodejs]: https://nodejs.org/
 [expo]: https://docs.expo.dev/
