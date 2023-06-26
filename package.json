@@ -8,6 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo export:web",
     "watcher": "npx json-server --watch --host 192.168.1.116 src/mock/db.json"
   },
   "dependencies": {
