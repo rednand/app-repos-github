@@ -19,7 +19,7 @@ _____
 ### Deploy
 <p>O aplicativo está na loja do Expo no link:</p>
 
-[exp://exp.host/@rednand/githubrepos?release-channel=default](exp://exp.host/@rednand/githubrepos?release-channel=default)
+[https://expo.dev/@rednand/githubrepos](https://expo.dev/@rednand/githubrepos)
 
 
 _____
