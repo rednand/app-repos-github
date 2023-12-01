@@ -5,77 +5,74 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Alert,
   ScrollView,
+  Alert,
 } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import estilos from "./estilos";
-import { buscaUsuario } from "../../service/reqs/usuarios";
+import { criaFinancas } from "../../service/reqs/usuarios";
+import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
+import moment from "moment";
 
 export default function Principal({ navigation }) {
-  const [nomeUsuario, setNomeUsuario] = useState("");
-  const [usuario, setUsuario] = useState({});
+  const [usuario, setUsuario] = useState({ valor: null, local: "", nome: "Renan" });
+  console.log("🚀 ~ file: index.js:19 ~ Principal ~ usuario:", usuario)
+  const [data, setData] = useState("");
 
-  async function busca() {
-    const resultado = await buscaUsuario(nomeUsuario);
-
-    setNomeUsuario("");
-    if (resultado) {
-      setUsuario(resultado);
-    } else {
-      Alert.alert("Usuario nao encontrado");
-      setUsuario({});
+  async function adicionar() {
+    try {
+      criaFinancas({ usuario: usuario.nome, local: usuario.local, valor: usuario.valor, data: data }).then((response) => {
+        if (response) {
+          navigation.navigate("Principal")
+        }
+      })
+    } catch {
+      Alert.alert("Não foi possível cadastrar")
     }
   }
+
 
   return (
     <ScrollView>
       <View style={estilos.container}>
-        {usuario?.login && (
-          <>
-            <View style={estilos.fundo} />
-            <View style={estilos.imagemArea}>
-              <Image
-                source={{
-                  uri: usuario.avatar_url,
-                }}
-                style={estilos.imagem}
-              />
-            </View>
-            <Text style={estilos.textoNome}>{usuario.login}</Text>
-            <Text style={estilos.textoEmail}>{usuario.email}</Text>
-            <View style={estilos.seguidoresArea}>
-              <View style={estilos.seguidores}>
-                <Text style={estilos.seguidoresNumero}>
-                  {usuario.following}
-                </Text>
-                <Text style={estilos.seguidoresTexto}>Seguidores</Text>
-              </View>
-              <View style={estilos.seguidores}>
-                <Text style={estilos.seguidoresNumero}>
-                  {usuario.followers}
-                </Text>
-                <Text style={estilos.seguidoresTexto}>Seguindo</Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Repositorios", { nome: usuario.login })
-              }
-            >
-              <Text style={estilos.repositorios}>Ver os repositórios</Text>
-            </TouchableOpacity>
-          </>
-        )}
         <TextInput
-          placeholder="Buscar usuário pelo nome"
+          placeholder="Valor"
           autoCapitalize="none"
-          value={nomeUsuario}
-          onChangeText={setNomeUsuario}
+          value={usuario.valor}
+          onChangeText={(e) => setUsuario((old) => ({ ...old, valor: e }))}
           style={estilos.entrada}
         />
-
-        <TouchableOpacity onPress={busca} style={estilos.botao}>
-          <Text style={estilos.textoBotao}>Buscar</Text>
+        <TextInput
+          placeholder="Local"
+          autoCapitalize="none"
+          value={usuario.local}
+          onChangeText={(e) => setUsuario((old) => ({ ...old, local: e }))}
+          style={estilos.entrada}
+        />
+        <Picker
+          style={estilos.entrada}
+          selectedValue={usuario.nome}
+          onValueChange={(itemValue, itemIndex) =>
+            setUsuario((old) => ({ ...old, nome: itemValue }))
+          }>
+          <Picker.Item label="Renan" value="Renan" />
+          <Picker.Item label="Samuel" value="Samuel" />
+        </Picker>
+        <View style={{ width: "80%", margin: "10%" }}>
+          {/* <DatePicker
+            current={data}
+            selected={data}
+            mode="calendar"
+            minuteInterval={30}
+            onSelectedChange={(date) => setData(date)}
+          /> */}
+          <DatePicker
+            selected={moment(new Date()).format("YYYY-MM-DD")}
+            onSelectedChange={(date) => setData(date)}
+          />
+        </View>
+        <TouchableOpacity onPress={() => adicionar()} style={estilos.botao}>
+          <Text style={estilos.textoBotao}>Adicionar</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
