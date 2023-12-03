@@ -4,6 +4,7 @@ import estilos from "./estilos";
 import { useIsFocused } from "@react-navigation/native";
 import { buscaUsuario, deletaUsuario } from "../../service/reqs/usuarios";
 import moment from "moment/moment";
+import 'moment/locale/pt-br';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Repositorios({ route, navigation }) {
@@ -30,38 +31,51 @@ export default function Repositorios({ route, navigation }) {
 
   return (
     <View style={estilos.container}>
-      <Text style={estilos.repositoriosTexto}>
-        {repo.length} gastos incluídos
-      </Text>
-      <View style={{ width: "100%", marginTop: 30, marginBottom: 20, display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-        <View style={{
-          borderColor: "#156",
-          borderWidth: 2,
-          padding: 10,
-          width: "40%",
-          borderRadius: 10,
-        }}>
-          <Text style={estilos.repositoriosTexto2}>Renan</Text>
-          <Text style={{
-            fontSize: 20,
-            fontWeight: "500",
-            color: "#8e25cb",
-          }}>{formatoReal.format(totalGastosInd1)}
-          </Text>
-        </View>
-        <View style={{
-          borderColor: "#156",
-          borderWidth: 2,
-          padding: 10, width: "40%",
-          borderRadius: 10,
-        }}>
-          <Text style={estilos.repositoriosTexto2}>Samuel</Text>
-          <Text style={{
-            fontSize: 20,
-            fontWeight: "500",
-            color: "#1e93d2",
-          }}>{formatoReal.format(totalGastosInd2)}
-          </Text>
+      <View style={{
+        display: "flex",
+        alignItems: "center",
+        padding: 20, backgroundColor: "#3b4b54",
+        justifyContent: "center",
+      }}>
+        <Text style={estilos.repositoriosTextoMes} >
+          {moment().format("MMMM")}
+        </Text>
+        <View style={{ borderColor: "#fff", width: "100%", height: 1 }}></View>
+        <Text style={estilos.repositoriosTexto}>
+          {repo.length} gastos incluídos
+        </Text>
+        <View style={{ width: "100%", marginTop: 30, marginBottom: 20, display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+          <View style={{
+            borderColor: "#f4f4f4",
+            backgroundColor: "#3b4b54",
+            borderWidth: 2,
+            padding: 10,
+            width: "45%",
+            borderRadius: 20,
+
+          }}>
+            <Text style={estilos.repositoriosTexto2}>Renan</Text>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: "500",
+              color: "#c9b0d7",
+            }}>{formatoReal.format(totalGastosInd1)}
+            </Text>
+          </View>
+          <View style={{
+            backgroundColor: "#3b4b54",
+            borderWidth: 2, borderColor: "#f4f4f4",
+            padding: 10, width: "45%",
+            borderRadius: 20,
+          }}>
+            <Text style={estilos.repositoriosTexto2}>Samuel</Text>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: "500",
+              color: "#a8cadd",
+            }}>{formatoReal.format(totalGastosInd2)}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -94,24 +108,24 @@ export default function Repositorios({ route, navigation }) {
               >
                 Data:
                 <Text style={estilos.repositorioDataValor}>
-                  {moment.utc(item.data).format("DD/MM/YYYY")}
+                  {" "}{moment.utc(item.data).format("DD/MM/YYYY")}
                 </Text>
               </Text>
               <Text style={estilos.repositorioData}>
                 Valor:
                 <Text style={item.nome == "Renan" ? estilos.repositorioDataValorInd1 : estilos.repositorioDataValorInd2}>
-                  {formatoReal.format(item.valor)}
+                  {" "}{formatoReal.format(item.valor)}
                 </Text>
               </Text>
               <Text style={estilos.repositorioData}>
                 Gasto: <Text style={estilos.repositorioDataValor}>
-                  {item.local}
+                  {" "}{item.local}
                 </Text>
               </Text>
               <Text style={estilos.repositorioData}>
                 Quem deve:
                 <Text style={estilos.repositorioDataValor}>
-                  {item.nome}
+                  {" "}{item.nome}
                 </Text>
               </Text>
             </View>

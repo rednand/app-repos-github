@@ -3,20 +3,27 @@ import { StyleSheet } from "react-native";
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f3f3f347",
     alignItems: "center",
     justifyContent: "center",
   },
   repositoriosTexto: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#f3f3f3",
+    marginTop: 5,
+  },
+  repositoriosTextoMes: {
     fontSize: 21,
     fontWeight: "600",
-    color: "#45565F",
-    marginTop: 20,
+    color: "#f3f3f3",
+    marginTop: 10,
+    textTransform: "capitalize",
   },
   repositoriosTexto2: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#444",
+    color: "#fff",
     display: "flex",
     flexDirection: "column"
   },
