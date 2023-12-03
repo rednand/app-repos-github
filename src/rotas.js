@@ -13,8 +13,8 @@ export default function Rotas() {
     return (
         <NavigationContainer>
             <Tab.Navigator>
-                <Tab.Screen name="Principal" options={{ title: "Busque um perfil no github" }} component={Principal} />
-                <Tab.Screen name="Repositorios" component={Repositorios} />
+                <Tab.Screen name="Home" options={{ title: "Controle de Finanças" }} component={Repositorios} />
+                <Tab.Screen name="Principal" component={Principal} />
                 <Tab.Screen name="CriarRepositorio" options={{ title: "Criar Repositório" }} component={CriarRepositorio} />
                 <Tab.Screen name="InfoRepositorio" options={{ title: "Repositório Info" }} component={InfoRepositorio} />
             </Tab.Navigator>
