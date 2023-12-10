@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Image,
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Alert,
   ToastAndroid,
 } from "react-native";
 import { Picker } from '@react-native-picker/picker';
@@ -68,15 +66,9 @@ export default function Principal({ navigation }) {
           <Picker.Item label="Renan" value="Renan" />
           <Picker.Item label="Samuel" value="Samuel" />
         </Picker>
-        <View style={{ width: "80%", margin: "10%" }}>
-          {/* <DatePicker
-            current={data}
-            selected={data}
-            mode="calendar"
-            minuteInterval={30}
-            onSelectedChange={(date) => setData(date)}
-          /> */}
+        <View style={{ width: "90%", margin: "10%" }}>
           <DatePicker
+            style={estilos.entradaDate}
             selected={moment(new Date()).format("YYYY-MM-DD")}
             onSelectedChange={(date) => setData(date)}
           />

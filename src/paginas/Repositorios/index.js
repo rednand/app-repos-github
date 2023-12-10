@@ -10,10 +10,20 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function Repositorios({ route, navigation }) {
   const [repo, setRepo] = useState([]);
   const estaNaTela = useIsFocused();
+  const [loading, setLoading] = useState(true);
+  console.log("🚀 ~ file: index.js:14 ~ Repositorios ~ loading:", loading)
 
   const carregarRepositorios = async () => {
-    const resultado = await buscaUsuario();
-    setRepo(resultado);
+    try {
+      setLoading(true);
+
+      const resultado = await buscaUsuario();
+      setRepo(resultado);
+    } catch (error) {
+      console.error('Erro ao carregar repositórios', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -34,20 +44,23 @@ export default function Repositorios({ route, navigation }) {
       <View style={{
         display: "flex",
         alignItems: "center",
-        padding: 20, backgroundColor: "#3b4b54",
+        padding: 20,
+        paddingTop: 5,
+        backgroundColor: "#0F1511",
+        borderBottomWidth: 2,
         justifyContent: "center",
       }}>
         <Text style={estilos.repositoriosTextoMes} >
           {moment().format("MMMM")}
         </Text>
-        <View style={{ borderColor: "#fff", width: "100%", height: 1 }}></View>
+        <View style={{ borderColor: "#212121", width: "100%", height: 1 }}></View>
         <Text style={estilos.repositoriosTexto}>
-          {repo.length} gastos incluídos
+          {repo.length === 1 ? repo.length + " gasto incluído" : repo.length + " gastos incluídos"}
         </Text>
-        <View style={{ width: "100%", marginTop: 30, marginBottom: 20, display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+        <View style={{ width: "100%", marginTop: 30, marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
           <View style={{
-            borderColor: "#f4f4f4",
-            backgroundColor: "#3b4b54",
+            borderColor: "#212121",
+            backgroundColor: "#373B38",
             borderWidth: 2,
             padding: 10,
             width: "45%",
@@ -63,16 +76,18 @@ export default function Repositorios({ route, navigation }) {
             </Text>
           </View>
           <View style={{
-            backgroundColor: "#3b4b54",
-            borderWidth: 2, borderColor: "#f4f4f4",
-            padding: 10, width: "45%",
+            backgroundColor: "#373B38",
+            borderWidth: 2,
+            borderColor: "#212121",
+            padding: 10,
+            width: "45%",
             borderRadius: 20,
           }}>
             <Text style={estilos.repositoriosTexto2}>Samuel</Text>
             <Text style={{
               fontSize: 20,
               fontWeight: "500",
-              color: "#a8cadd",
+              color: "#e3edc5",
             }}>{formatoReal.format(totalGastosInd2)}
             </Text>
           </View>
@@ -88,15 +103,24 @@ export default function Repositorios({ route, navigation }) {
       >
         <Text style={estilos.textoBotao}>Adicionar novo gasto</Text>
       </TouchableOpacity>
-
+      {loading ? <View style={{ marginTop: "5%" }}>
+        <Text style={{ fontSize: 80 }}>...</Text>
+      </View> : null}
       <FlatList
         data={repo}
-        style={{ width: "90%" }}
+        style={{ width: "90%", marginTop: "10%" }}
         keyExtractor={(repo) => repo._id}
         renderItem={({ item }) => (
           <View style={{
-            display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row", borderBottomColor: '#212121',
-            borderBottomWidth: 1,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
+            marginHorizontal: 10,
+            marginVertical: 15,
+            paddingHorizontal: 15,
+            backgroundColor: "#Fff",
+            borderRadius: 20,
           }}>
             <View style={{
               marginBottom: 20,
@@ -136,6 +160,7 @@ export default function Repositorios({ route, navigation }) {
           </View>
         )}
       />
-    </View>
+
+    </View >
   );
 }

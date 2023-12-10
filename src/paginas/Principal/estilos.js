@@ -3,27 +3,30 @@ import { StyleSheet } from 'react-native';
 const estilos = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fafafa',
+        backgroundColor: '#F1F0EE',
         alignItems: 'center',
         marginBottom: 20,
     },
     botao: {
-        backgroundColor: '#8A07DA',
-        marginTop: 20,
+        backgroundColor: '#E7FE55',
+        marginTop: 10,
+        borderColor: "#212121",
+        borderWidth: 4,
+        marginBottom: 20,
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
+        borderRadius: 40,
         width: '90%',
     },
     textoBotao: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: '#fff',
+        color: '#212121',
     },
     entrada: {
         borderWidth: 2,
-        borderColor: '#ddd',
+        borderColor: '#5a612f',
         paddingHorizontal: 20,
         fontSize: 16,
         color: '#444',
@@ -32,6 +35,11 @@ const estilos = StyleSheet.create({
         height: 44,
         width: '90%',
     },
+    entradaDate: {
+        borderWidth: 2,
+        borderColor: '#5a612f',
+        borderRadius: 8,
+    },
     imagemArea: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -39,7 +47,7 @@ const estilos = StyleSheet.create({
         height: 150,
         borderRadius: 75,
         marginTop: -75,
-        backgroundColor: '#FFF',
+        backgroundColor: '#EAE2B7',
     },
     imagem: {
         width: 120,
@@ -47,7 +55,7 @@ const estilos = StyleSheet.create({
         borderRadius: 60,
     },
     fundo: {
-        backgroundColor: '#C4C4C4',
+        backgroundColor: '#EAE2B7',
         width: '100%',
         height: 156,
     },

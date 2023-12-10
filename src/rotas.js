@@ -9,11 +9,15 @@ import Principal from './paginas/Principal';
 import Repositorios from './paginas/Repositorios';
 import CriarRepositorio from './paginas/CriarRepositorio';
 import InfoRepositorio from './paginas/InfoRepositorio';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import imageUrl from "./../assets/logoappbar.png"
 
 const CircularHeader = ({ title }) => (
     <View style={styles.circularHeader}>
-        <Text style={styles.circularHeaderText}>{title}</Text>
+        {imageUrl && (
+            <Image source={imageUrl} style={styles.headerImage} />
+        )}
     </View>
 );
 
@@ -30,33 +34,25 @@ const renderHeaderLeft = ({ navigation }) => {
 export default function Rotas() {
     return (
         <NavigationContainer  >
+            <StatusBar style="light" />
             <Tab.Navigator
                 screenOptions={({ route }) => ({
                     headerTitle: (props) => <CircularHeader {...props} />,
                     headerStyle: {
-                        backgroundColor: route.name === 'Home' ? "#7e8c94" : "#3b4b54",
-                        borderBottomColor: route.name === 'Home' ? "#3b4b54" : "#3b4b54",
-                        borderRadius: route.name === 'Home' ? 25 : 0,
+                        backgroundColor: "#101110",
                     },
                     headerTitleStyle: {
-                        color: "#354",
                         fontSize: 20
                     },
                 })}>
                 <Tab.Screen name="Home"
                     options={() => ({
                         headerShown: true,
-                        headerTitle: (props) => <CircularHeader title={"Controle Financeiro"} />,
-                        headerStyle: {
-                            backgroundColor: "#fff",
-                            borderBottomColor: "#fff",
-                            borderBottomWidth: 2,
-                        },
+                        headerTitle: (props) => <CircularHeader title={"NOSSO GASTO"} />,
                         headerTitleStyle: {
                             color: "#fff",
-                            fontSize: 28
+                            fontSize: 20
                         },
-                        title: "Nossos gastos",
                     })}
                     component={Repositorios} />
                 <Tab.Screen name="Principal" component={Principal}
@@ -80,14 +76,19 @@ export default function Rotas() {
 }
 
 const styles = StyleSheet.create({
+    headerImage: { borderRadius: 20, marginTop: 10, width: "100%", height: 60 },
     circularHeader: {
-        width: "96%",
-        height: 50,
+        width: "95%",
+        marginRight: 5,
         marginTop: 20,
+        marginBottom: 10,
+        borderRadius: 20,
         alignContent: 'center',
     },
     circularHeaderText: {
-        color: '#456',
+        color: '#212121',
+        fontWeight: "bold",
+        alignSelf: "center",
         fontSize: 22,
     },
 });
