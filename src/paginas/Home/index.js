@@ -11,7 +11,6 @@ export default function Repositorios({ route, navigation }) {
   const [repo, setRepo] = useState([]);
   const estaNaTela = useIsFocused();
   const [loading, setLoading] = useState(true);
-  console.log("🚀 ~ file: index.js:14 ~ Repositorios ~ loading:", loading)
 
   const carregarRepositorios = async () => {
     try {

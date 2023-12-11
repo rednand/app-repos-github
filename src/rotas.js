@@ -5,10 +5,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createNativeStackNavigator();
 
-import Principal from './paginas/Principal';
-import Repositorios from './paginas/Repositorios';
-import CriarRepositorio from './paginas/CriarRepositorio';
-import InfoRepositorio from './paginas/InfoRepositorio';
+import Cadastro from './paginas/Cadastro';
+import Home from './paginas/Home';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import imageUrl from "./../assets/logoappbar.png"
@@ -48,14 +46,14 @@ export default function Rotas() {
                 <Tab.Screen name="Home"
                     options={() => ({
                         headerShown: true,
-                        headerTitle: (props) => <CircularHeader title={"NOSSO GASTO"} />,
+                        headerTitle: () => <CircularHeader title={"NOSSO GASTO"} />,
                         headerTitleStyle: {
                             color: "#fff",
                             fontSize: 20
                         },
                     })}
-                    component={Repositorios} />
-                <Tab.Screen name="Principal" component={Principal}
+                    component={Home} />
+                <Tab.Screen name="Principal" component={Cadastro}
                     options={({ navigation }) => ({
                         headerShown: true,
                         headerTitle: "Cadastro",
@@ -68,8 +66,6 @@ export default function Rotas() {
                         title: "Nossos gastos",
                     })}
                 />
-                <Tab.Screen name="CriarRepositorio" options={{ title: "Criar Repositório" }} component={CriarRepositorio} />
-                <Tab.Screen name="InfoRepositorio" options={{ title: "Repositório Info" }} component={InfoRepositorio} />
             </Tab.Navigator>
         </NavigationContainer>
     );

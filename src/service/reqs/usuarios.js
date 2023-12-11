@@ -9,23 +9,11 @@ export async function buscaUsuario() {
 
     return resultado.data;
   } catch (error) {
-    console.log(error);
+    Alert.alert(error)
     return {};
   }
 }
 
-// export async function criaFinancas(body) {
-//   console.log("🚀 ~ file: usuarios.js:15 ~ criaFinancas ~ body:", body)
-//   try {
-//     const resultado = await api.post('/informValor', body);
-//     return resultado.data;
-//   } catch (error) {
-//     console.error("Erro em criaFinancas:", error.message, error.response?.data);
-//     console.log("🚀 ~ file: usuarios.js:19 ~ criaFinancas ~ error:", error)
-//     Alert.alert("Erro", error.message || "Erro desconhecido");
-//     return error
-//   }
-// }
 
 export async function deletaUsuario(id) {
   try {

@@ -31,7 +31,6 @@ export async function criarRepositoriosDoUsuario(postId, nome, data) {
     });
     return "sucesso";
   } catch (error) {
-    console.log("🚀 ~ file: criarRepositoriosDoUsuario ~ error:", error);
     return "erro";
   }
 }
@@ -40,7 +39,6 @@ export async function deletarRepositorioDoUsuario(id) {
     await api.delete(`/repos/${id}`);
     return "sucesso";
   } catch (error) {
-    console.log("🚀 ~ file: criarRepositoriosDoUsuario ~ error:", error);
     return "erro";
   }
 }
