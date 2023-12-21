@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#CFFF7F"
+      "backgroundColor": "#cbfb74"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
-        "backgroundColor": "#CFFF7F"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#cbfb74"
       },
       "package": "com.rednand.githubrepos"
     },
