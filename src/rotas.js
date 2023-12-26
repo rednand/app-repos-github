@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Cadastro from './paginas/Cadastro';
 import Home from './paginas/Home';
@@ -9,6 +8,9 @@ import { StatusBar } from 'expo-status-bar';
 import imageUrl from "./../assets/logo.png"
 import icon from "./../assets/semente-do-cafe.png"
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
+import MeuGasto from './paginas/MeuGasto';
+import Login from './paginas/Login';
+import NovoUsuario from './paginas/NovoUsuario';
 
 export default function Rotas() {
 
@@ -51,29 +53,28 @@ export default function Rotas() {
     return (
         <NavigationContainer  >
             <StatusBar style="dark" />
-            <Tab.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    headerTitle: (props) => <CircularHeader {...props} />,
-                    headerStyle: {
-                        backgroundColor: "#cbfb74",
-                    },
+            <Tab.Navigator screenOptions={{
+                headerShown: false,
+                headerTitle: (props) => <CircularHeader {...props} />,
+                headerStyle: {
+                    backgroundColor: "#cbfb74",
+                },
+                headerTitleStyle: {
+                    fontSize: 20
+                },
+            }} drawerContent={props => <CustomDrawerContent {...props} />}
+            >
+                <Tab.Screen name="Login" options={() => ({
+                    drawerItemStyle: { display: 'none' },
+                })} initialRouteName="Login" component={Login} />
+                <Tab.Screen name="Home" options={() => ({
+                    headerShown: true,
+                    headerTitle: () => <CircularHeader title={"MEUS GASTOS"} />,
                     headerTitleStyle: {
+                        color: "#fff",
                         fontSize: 20
                     },
-                }}
-                drawerContent={props => <CustomDrawerContent {...props} />}
-            >
-                <Tab.Screen name="Home"
-                    options={() => ({
-                        headerShown: true,
-                        headerTitle: () => <CircularHeader title={"MEUS GASTOS"} />,
-                        headerTitleStyle: {
-                            color: "#fff",
-                            fontSize: 20
-                        },
-                    })}
-                    component={Home} />
+                })} component={Home} />
                 <Tab.Screen name="Principal" component={Cadastro}
                     options={({ navigation }) => ({
                         headerShown: true,
@@ -87,6 +88,23 @@ export default function Rotas() {
                         title: "Cadastro de gasto",
                     })}
                 />
+                <Tab.Screen name="NovoUsuario" options={() => ({
+                    drawerItemStyle: { display: 'none' },
+                })} component={NovoUsuario} />
+                <Tab.Screen name="MeuGasto" component={MeuGasto}
+                    options={({ navigation }) => ({
+                        headerShown: true,
+                        headerTitle: "Meu gasto",
+                        headerTitleStyle: {
+                            color: "#212121",
+                            fontSize: 20
+                        },
+                        headerLeft: () => renderHeaderLeft({ navigation }),
+
+                        title: "Meu gasto",
+                    })}
+                />
+                <Tab.Screen name="Sair" component={Login} />
             </Tab.Navigator>
         </NavigationContainer>
     );

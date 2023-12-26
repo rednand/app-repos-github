@@ -1,15 +1,20 @@
-import { Alert } from "react-native";
 import { useQuery, useMutation, queryCache } from 'react-query';
 import api from '../api';
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export async function buscaUsuario() {
   try {
-    const resultado = await api.get();
+    const token = await AsyncStorage.getItem('tokenParsed');
+    const tokenParsed = JSON.parse(token);
+    const resultado = await api.get("listall", {
+      headers: {
+        Authorization: `Bearer ${tokenParsed}`,
+      }
+    },);
 
     return resultado.data;
   } catch (error) {
-    Alert.alert(error)
     return {};
   }
 }
@@ -35,6 +40,16 @@ const criaFinancas = async (body) => {
   return resultado.data;
 };
 
+const login = async (body) => {
+  const resultado = await api.post('login', body);
+  return resultado.data
+};
+
+const cadastro = async (body) => {
+  const resultado = await api.post('register', body);
+  return resultado.data
+};
+
 const useFinancas = () => {
   return useQuery('financas', fetchFinancas);
 };
@@ -50,4 +65,26 @@ const useCriaFinancas = () => {
   });
 };
 
-export { useFinancas, useCriaFinancas };
+const useLogin = () => {
+
+  const navigation = useNavigation();
+
+  return useMutation(login, {
+    onSuccess: () => {
+      navigation.navigate("Home")
+    },
+  });
+};
+
+const useCadastro = () => {
+
+  const navigation = useNavigation();
+
+  return useMutation(cadastro, {
+    onSuccess: () => {
+      navigation.navigate("Login")
+    },
+  });
+};
+
+export { useLogin, useCadastro, useFinancas, useCriaFinancas };

@@ -15,11 +15,9 @@ export default function Repositorios({ route, navigation }) {
   const carregarRepositorios = async () => {
     try {
       setLoading(true);
-
       const resultado = await buscaUsuario();
-      setRepo(resultado);
+      resultado.length > 0 ? setRepo(resultado) : null;
     } catch (error) {
-      console.error('Erro ao carregar repositórios', error);
     } finally {
       setLoading(false);
     }
