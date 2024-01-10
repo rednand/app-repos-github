@@ -7,6 +7,7 @@ import {
     ScrollView,
     ToastAndroid,
     Image,
+    ActivityIndicator,
 } from "react-native";
 import estilos from "./estilos";
 import { useLogin } from "../../service/reqs/usuarios";
@@ -67,7 +68,7 @@ export default function Login() {
 
             <View style={estilos.container}>
                 <TextInput
-                    placeholder="Email"
+                    placeholder="Nome"
                     autoCapitalize="none"
                     value={usuario.username}
                     onChangeText={(e) => setUsuario((old) => ({ ...old, username: e }))}
@@ -85,7 +86,7 @@ export default function Login() {
 
                 <TouchableOpacity onPress={() => login()} style={estilos.botao}>
                     <Text style={estilos.textoBotao}>
-                        {isLoading ? "Entrando ..." : "Entrar"}
+                        {isLoading ? <ActivityIndicator color={"#cbfb74"} /> : "Entrar"}
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => cadastro()} style={estilos.botaoCadastro}>

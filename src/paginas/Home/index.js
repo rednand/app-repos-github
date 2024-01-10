@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import estilos from "./estilos";
 import { useIsFocused } from "@react-navigation/native";
 import { buscaUsuario, deletaUsuario } from "../../service/reqs/usuarios";
@@ -100,63 +100,65 @@ export default function Repositorios({ route, navigation }) {
       >
         <Text style={estilos.textoBotao}>Adicionar novo gasto</Text>
       </TouchableOpacity>
-      {loading ? <View style={{ marginTop: "5%" }}>
-        <Text style={{ fontSize: 80 }}>...</Text>
-      </View> : null}
-      <FlatList
-        data={repo}
-        style={{ width: "90%", marginTop: "10%" }}
-        keyExtractor={(repo) => repo._id}
-        renderItem={({ item }) => (
-          <View style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-            marginHorizontal: 10,
-            marginVertical: 15,
-            paddingHorizontal: 15,
-            backgroundColor: "#Fff",
-            borderRadius: 20,
-          }}>
-            <View style={{
-              marginBottom: 20,
-              marginTop: 20,
-            }}>
-              <Text
-                style={estilos.repositorioNome}
 
-              >
-                Data:
-                <Text style={estilos.repositorioDataValor}>
-                  {" "}{moment.utc(item.data).format("DD/MM/YYYY")}
+      {loading ? <View
+        style={{ height: 390 }}>
+        <ActivityIndicator color={"#212121"} size={40} style={{ margin: 40 }} />
+      </View> :
+        <FlatList
+          data={repo}
+          style={{ width: "90%", marginTop: "10%" }}
+          keyExtractor={(repo) => repo._id}
+          renderItem={({ item }) => (
+            <View style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "row",
+              marginHorizontal: 10,
+              marginVertical: 15,
+              paddingHorizontal: 15,
+              backgroundColor: "#Fff",
+              borderRadius: 20,
+            }}>
+              <View style={{
+                marginBottom: 20,
+                marginTop: 20,
+              }}>
+                <Text
+                  style={estilos.repositorioNome}
+
+                >
+                  Data:
+                  <Text style={estilos.repositorioDataValor}>
+                    {" "}{moment.utc(item.data).format("DD/MM/YYYY")}
+                  </Text>
                 </Text>
-              </Text>
-              <Text style={estilos.repositorioData}>
-                Valor:
-                <Text style={item.nome == "Renan" ? estilos.repositorioDataValorInd1 : estilos.repositorioDataValorInd2}>
-                  {" "}{formatoReal.format(item.valor)}
+                <Text style={estilos.repositorioData}>
+                  Valor:
+                  <Text style={item.nome == "Renan" ? estilos.repositorioDataValorInd1 : estilos.repositorioDataValorInd2}>
+                    {" "}{formatoReal.format(item.valor)}
+                  </Text>
                 </Text>
-              </Text>
-              <Text style={estilos.repositorioData}>
-                Gasto: <Text style={estilos.repositorioDataValor}>
-                  {" "}{item.local}
+                <Text style={estilos.repositorioData}>
+                  Gasto: <Text style={estilos.repositorioDataValor}>
+                    {" "}{item.local}
+                  </Text>
                 </Text>
-              </Text>
-              <Text style={estilos.repositorioData}>
-                Quem deve:
-                <Text style={estilos.repositorioDataValor}>
-                  {" "}{item.nome}
+                <Text style={estilos.repositorioData}>
+                  Quem deve:
+                  <Text style={estilos.repositorioDataValor}>
+                    {" "}{item.nome}
+                  </Text>
                 </Text>
-              </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => deletaUsuario(item._id).then(() => carregarRepositorios())}>
+                <MaterialCommunityIcons name="trash-can-outline" size={24} color="black" />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => deletaUsuario(item._id).then(() => carregarRepositorios())}>
-              <MaterialCommunityIcons name="trash-can-outline" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+          )}
+        />}
 
     </View >
   );

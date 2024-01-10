@@ -22,7 +22,7 @@ export async function buscaUsuario() {
 
 export async function deletaUsuario(id) {
   try {
-    const resultado = await api.delete(`/deleteValor/${id}`);
+    const resultado = await api.delete(`/listall/deleteValor/${id}`);
     return resultado.data;
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ const fetchFinancas = async () => {
 };
 
 const criaFinancas = async (body) => {
-  const resultado = await api.post('/informValor', body);
+  const resultado = await api.post('/listall/informValor', body);
   return resultado.data;
 };
 

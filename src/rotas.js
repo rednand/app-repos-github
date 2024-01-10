@@ -5,7 +5,6 @@ import Cadastro from './paginas/Cadastro';
 import Home from './paginas/Home';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import imageUrl from "./../assets/logo.png"
 import icon from "./../assets/semente-do-cafe.png"
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
 import MeuGasto from './paginas/MeuGasto';
@@ -84,7 +83,6 @@ export default function Rotas() {
                             fontSize: 20
                         },
                         headerLeft: () => renderHeaderLeft({ navigation }),
-
                         title: "Cadastro de gasto",
                     })}
                 />
@@ -100,7 +98,6 @@ export default function Rotas() {
                             fontSize: 20
                         },
                         headerLeft: () => renderHeaderLeft({ navigation }),
-
                         title: "Meu gasto",
                     })}
                 />

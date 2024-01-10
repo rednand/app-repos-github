@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import estilos from "./estilos";
@@ -74,7 +75,7 @@ export default function Principal({ navigation }) {
           />
         </View>
         <TouchableOpacity onPress={() => adicionar()} style={estilos.botao}>
-          <Text style={estilos.textoBotao}>{isLoading ? "Adicionando ..." : "Adicionar"}</Text>
+          <Text style={estilos.textoBotao}>{isLoading ? <ActivityIndicator color={"#212121"} /> : "Adicionar"}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
