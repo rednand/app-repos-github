@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import estilos from "./estilos";
 import { useIsFocused } from "@react-navigation/native";
-import { buscaUsuario, deletaUsuario } from "../../service/reqs/usuarios";
+import { buscaGastos, deletaGasto } from "../../service/reqs/gastos";
 import moment from "moment/moment";
 import 'moment/locale/pt-br';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -15,7 +15,7 @@ export default function Repositorios({ route, navigation }) {
   const carregarRepositorios = async () => {
     try {
       setLoading(true);
-      const resultado = await buscaUsuario();
+      const resultado = await buscaGastos();
       resultado.length > 0 ? setRepo(resultado) : null;
     } catch (error) {
     } finally {
@@ -153,7 +153,7 @@ export default function Repositorios({ route, navigation }) {
                 </Text>
               </View>
               <TouchableOpacity
-                onPress={() => deletaUsuario(item._id).then(() => carregarRepositorios())}>
+                onPress={() => deletaGasto(item._id).then(() => carregarRepositorios())}>
                 <MaterialCommunityIcons name="trash-can-outline" size={24} color="black" />
               </TouchableOpacity>
             </View>

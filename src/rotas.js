@@ -10,6 +10,8 @@ import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '
 import MeuGasto from './paginas/MeuGasto';
 import Login from './paginas/Login';
 import NovoUsuario from './paginas/NovoUsuario';
+import Anotacoes from './paginas/Anotacoes';
+import CadastroAnotacao from './paginas/CadastroAnotacoes';
 
 export default function Rotas() {
 
@@ -28,7 +30,7 @@ export default function Rotas() {
         return (
             <TouchableOpacity
                 style={{ marginLeft: 15 }}
-                onPress={() => navigation.goBack()}>
+                onPress={() => navigation.navigate("Home")}>
                 <FontAwesome5 name="angle-left" size={24} color={'#212121'} />
             </TouchableOpacity>
         );
@@ -86,6 +88,18 @@ export default function Rotas() {
                         title: "Cadastro de gasto",
                     })}
                 />
+                <Tab.Screen name="CadastroAnotacao" component={CadastroAnotacao}
+                    options={({ navigation }) => ({
+                        headerShown: true,
+                        headerTitle: "Cadastro anotação",
+                        headerTitleStyle: {
+                            color: "#212121",
+                            fontSize: 20
+                        },
+                        headerLeft: () => renderHeaderLeft({ navigation }),
+                        title: "Cadastro de anotação",
+                    })}
+                />
                 <Tab.Screen name="NovoUsuario" options={() => ({
                     drawerItemStyle: { display: 'none' },
                 })} component={NovoUsuario} />
@@ -99,6 +113,18 @@ export default function Rotas() {
                         },
                         headerLeft: () => renderHeaderLeft({ navigation }),
                         title: "Meu gasto",
+                    })}
+                />
+                <Tab.Screen name="Anotacoes" component={Anotacoes}
+                    options={({ navigation }) => ({
+                        headerShown: true,
+                        headerTitle: "Anotações",
+                        headerTitleStyle: {
+                            color: "#212121",
+                            fontSize: 20
+                        },
+                        headerLeft: () => renderHeaderLeft({ navigation }),
+                        title: "Anotações",
                     })}
                 />
                 <Tab.Screen name="Sair" component={Login} />

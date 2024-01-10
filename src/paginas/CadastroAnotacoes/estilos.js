@@ -27,13 +27,12 @@ const estilos = StyleSheet.create({
     entrada: {
         borderWidth: 2,
         borderColor: '#5a612f',
-        backgroundColor: '#fff',
         paddingHorizontal: 20,
+        backgroundColor: '#fff',
         fontSize: 16,
         color: '#444',
         marginTop: 40,
         borderRadius: 8,
-        height: 44,
         width: '90%',
     },
     entradaDate: {

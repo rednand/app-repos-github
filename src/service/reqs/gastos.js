@@ -3,7 +3,7 @@ import api from '../api';
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export async function buscaUsuario() {
+export async function buscaGastos() {
   try {
     const token = await AsyncStorage.getItem('tokenParsed');
     const tokenParsed = JSON.parse(token);
@@ -19,8 +19,7 @@ export async function buscaUsuario() {
   }
 }
 
-
-export async function deletaUsuario(id) {
+export async function deletaGasto(id) {
   try {
     const resultado = await api.delete(`/listall/deleteValor/${id}`);
     return resultado.data;
@@ -38,11 +37,6 @@ const fetchFinancas = async () => {
 const criaFinancas = async (body) => {
   const resultado = await api.post('/listall/informValor', body);
   return resultado.data;
-};
-
-const login = async (body) => {
-  const resultado = await api.post('login', body);
-  return resultado.data
 };
 
 const cadastro = async (body) => {
@@ -65,17 +59,6 @@ const useCriaFinancas = () => {
   });
 };
 
-const useLogin = () => {
-
-  const navigation = useNavigation();
-
-  return useMutation(login, {
-    onSuccess: () => {
-      navigation.navigate("Home")
-    },
-  });
-};
-
 const useCadastro = () => {
 
   const navigation = useNavigation();
@@ -87,4 +70,4 @@ const useCadastro = () => {
   });
 };
 
-export { useLogin, useCadastro, useFinancas, useCriaFinancas };
+export { useCadastro, useFinancas, useCriaFinancas };

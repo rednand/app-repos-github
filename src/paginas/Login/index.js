@@ -10,7 +10,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 import estilos from "./estilos";
-import { useLogin } from "../../service/reqs/usuarios";
+import { useLogin } from "../../service/reqs/login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import imageLogo from ">/../../assets/semente-do-cafe.png"
@@ -82,7 +82,6 @@ export default function Login() {
                     onChangeText={(e) => setUsuario((old) => ({ ...old, password: e }))}
                     style={estilos.entrada}
                 />
-
 
                 <TouchableOpacity onPress={() => login()} style={estilos.botao}>
                     <Text style={estilos.textoBotao}>

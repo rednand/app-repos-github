@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import estilos from "./estilos";
-import { criaFinancas, useCriaFinancas } from "../../service/reqs/usuarios";
+import { criaFinancas, useCriaFinancas } from "../../service/reqs/gastos";
 import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 import moment from "moment";
 

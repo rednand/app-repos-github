@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import estilos from "./estilos";
-import { useCadastro } from "../../service/reqs/usuarios";
+import { useCadastro } from "../../service/reqs/gastos";
 import { useNavigation } from "@react-navigation/native";
 import imageLogo from ">/../../assets/semente-do-cafe.png"
 
