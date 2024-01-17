@@ -28,8 +28,8 @@ export default function Login() {
         try {
             await mutate(body);
 
-            if (isSuccess) {
-                AsyncStorage.setItem('tokenParsed', JSON.stringify(data?.token));
+            if (data?.token) {
+                AsyncStorage.setItem('tokenParsed', JSON.stringify(data.token));
                 ToastAndroid.show(
                     'Logado com sucesso',
                     ToastAndroid.SHORT,
