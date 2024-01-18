@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Text,
     View,
@@ -8,17 +8,25 @@ import {
     ToastAndroid,
     Image,
     ActivityIndicator,
+    Button,
 } from "react-native";
 import estilos from "./estilos";
 import { useLogin } from "../../service/reqs/login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import imageLogo from ">/../../assets/semente-do-cafe.png"
+import { ContextToken } from "../../service/auth";
 
 export default function Login() {
     const [usuario, setUsuario] = useState({ username: "", password: '', })
     const navigation = useNavigation();
     const { data, mutate, isLoading, isSuccess } = useLogin();
+
+    const { setTokenContext } = React.useContext(ContextToken);
+
+    useEffect(() => {
+        if (data) setTokenContext(data.token)
+    }, [data])
 
     const login = async () => {
         const body = {
@@ -28,8 +36,7 @@ export default function Login() {
         try {
             await mutate(body);
 
-            if (data?.token) {
-                AsyncStorage.setItem('tokenParsed', JSON.stringify(data.token));
+            if (isSuccess) {
                 ToastAndroid.show(
                     'Logado com sucesso',
                     ToastAndroid.SHORT,
@@ -53,7 +60,6 @@ export default function Login() {
             paddingTop: 80,
             backgroundColor: "#cbfb74",
         }}>
-
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     style={{
@@ -93,6 +99,6 @@ export default function Login() {
                 </TouchableOpacity>
 
             </View>
-        </ScrollView>
+        </ScrollView >
     );
 }

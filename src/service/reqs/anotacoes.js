@@ -1,24 +1,26 @@
-import { useMutation, queryCache } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import api from '../api';
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const buscaAnotacoes = async () => {
-  try {
-    const token = await AsyncStorage.getItem('tokenParsed');
-    const tokenParsed = JSON.parse(token);
+
+
+export function useBuscaAnotacoes(tokenParsed) {
+  const fetchData = async () => {
     const resultado = await api.get("listanotacoes", {
       headers: {
         Authorization: `Bearer ${tokenParsed}`,
-      }
-    },);
+      },
+    });
 
     return resultado.data;
-  } catch (error) {
-    return {};
-  }
-}
+  };
 
+  const { data, isLoading, refetch } = useQuery('listanotacoes', fetchData, {
+    refetchInterval: 3000,
+  });
+
+  return { data, isLoading, refetch };
+}
 
 const deletaAnotacao = async (id) => {
   try {
@@ -46,4 +48,4 @@ const useCriaAnotacoes = () => {
   });
 };
 
-export { useCriaAnotacoes, buscaAnotacoes, deletaAnotacao };
+export { useCriaAnotacoes, deletaAnotacao };

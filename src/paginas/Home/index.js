@@ -1,40 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from "react-native";
 import estilos from "./estilos";
-import { useIsFocused } from "@react-navigation/native";
-import { buscaGastos, deletaGasto } from "../../service/reqs/gastos";
+import { deletaGasto, useBuscaGastos } from "../../service/reqs/gastos";
 import moment from "moment/moment";
 import 'moment/locale/pt-br';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ContextToken } from "../../service/auth";
 
-export default function Repositorios({ route, navigation }) {
+export default function Home({ route, navigation }) {
   const [repo, setRepo] = useState([]);
-  const estaNaTela = useIsFocused();
-  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const carregarRepositorios = async () => {
-    try {
-      setLoading(true);
-      const resultado = await buscaGastos();
-      resultado.length > 0 ? setRepo(resultado) : null;
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { tokenContext } = React.useContext(ContextToken);
+  const { data: gastos, isLoading, refetch } = useBuscaGastos(tokenContext);
 
   useEffect(() => {
-    carregarRepositorios();
-  }, [estaNaTela]);
+    if (tokenContext && !!gastos) {
+      setRepo(gastos);
+    }
+
+  }, [tokenContext, gastos]);
 
   const formatoReal = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
-  const totalGastosInd1 = repo.filter((item) => item.nome === "Renan").reduce((total, gasto) => total + gasto.valor, 0);
-  const totalGastosInd2 = repo.filter((item) => item.nome === "Samuel").reduce((total, gasto) => total + gasto.valor, 0);
+
+  const totalGastosInd1 = repo?.filter((item) => item.nome === "Renan").reduce((total, gasto) => total + gasto.valor, 0);
+  const totalGastosInd2 = repo?.filter((item) => item.nome === "Samuel").reduce((total, gasto) => total + gasto.valor, 0);
 
   return (
     <View style={estilos.container}>
@@ -52,7 +52,7 @@ export default function Repositorios({ route, navigation }) {
         </Text>
         <View style={{ borderColor: "#212121", width: "100%", height: 1 }}></View>
         <Text style={estilos.repositoriosTexto}>
-          {repo.length === 1 ? repo.length + " gasto incluído" : repo.length + " gastos incluídos"}
+          {repo?.length === 1 ? repo?.length + " gasto incluído" : repo?.length + " gastos incluídos"}
         </Text>
         <View style={{ width: "100%", marginTop: 30, marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
           <View style={{
@@ -101,11 +101,19 @@ export default function Repositorios({ route, navigation }) {
         <Text style={estilos.textoBotao}>Adicionar novo gasto</Text>
       </TouchableOpacity>
 
-      {loading ? <View
+      {isLoading ? <View
         style={{ height: 390 }}>
         <ActivityIndicator color={"#212121"} size={40} style={{ margin: 40 }} />
       </View> :
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["#212121"]}
+            />
+
+          }
           data={repo}
           style={{ width: "90%", marginTop: "10%" }}
           keyExtractor={(repo) => repo._id}
@@ -153,7 +161,7 @@ export default function Repositorios({ route, navigation }) {
                 </Text>
               </View>
               <TouchableOpacity
-                onPress={() => deletaGasto(item._id).then(() => carregarRepositorios())}>
+                onPress={() => deletaGasto(item._id).then(() => refetch())}>
                 <MaterialCommunityIcons name="trash-can-outline" size={24} color="black" />
               </TouchableOpacity>
             </View>

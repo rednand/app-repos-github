@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import estilos from "./estilos";
 import { useIsFocused } from "@react-navigation/native";
@@ -12,27 +13,28 @@ import moment from "moment/moment";
 import "moment/locale/pt-br";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { buscaAnotacoes, deletaAnotacao } from "../../service/reqs/anotacoes";
+import { deletaAnotacao, useBuscaAnotacoes } from "../../service/reqs/anotacoes";
+import { ContextToken } from "../../service/auth";
 
 export default function Anotacoes({ route, navigation }) {
   const [repo, setRepo] = useState([]);
-  const estaNaTela = useIsFocused();
-  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const carregaAnotacoes = async () => {
-    try {
-      setLoading(true);
-      const resultado = await buscaAnotacoes();
-      resultado.length > 0 ? setRepo(resultado) : null;
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
+  const { tokenContext } = React.useContext(ContextToken);
+  const { data: gastos, isLoading, refetch } = useBuscaAnotacoes(tokenContext);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
   };
 
   useEffect(() => {
-    carregaAnotacoes();
-  }, [estaNaTela]);
+    if (tokenContext && !!gastos) {
+      setRepo(gastos);
+    }
+
+  }, [tokenContext, gastos]);
 
   return (
     <View style={estilos.container}>
@@ -42,7 +44,7 @@ export default function Anotacoes({ route, navigation }) {
         <Entypo name="circle-with-plus" size={24} color={'#212121'} style={{ marginTop: 20 }} />
       </TouchableOpacity>
 
-      {loading ? (
+      {isLoading ? (
         <View style={{ height: 390 }}>
           <ActivityIndicator
             color={"#212121"}
@@ -53,6 +55,13 @@ export default function Anotacoes({ route, navigation }) {
       ) : (
         <FlatList
           data={repo}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={["#212121"]}
+            />
+          }
           style={{ width: "95%", marginTop: "5%" }}
           keyExtractor={(repo) => repo._id}
           renderItem={({ item }) => (
@@ -92,7 +101,7 @@ export default function Anotacoes({ route, navigation }) {
               </View>
               <TouchableOpacity
                 onPress={() =>
-                  deletaAnotacao(item._id).then(() => carregaAnotacoes())
+                  deletaAnotacao(item._id).then(() => refetch())
                 }
               >
                 <MaterialCommunityIcons

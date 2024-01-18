@@ -1,12 +1,10 @@
 import { useQuery, useMutation, queryCache } from 'react-query';
 import api from '../api';
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export async function buscaGastos() {
+export async function buscaGastos(tokenParsed) {
+  console.log("🚀 ~ buscaGastos ~ tokenParsed:", tokenParsed)
   try {
-    const token = await AsyncStorage.getItem('tokenParsed');
-    const tokenParsed = JSON.parse(token);
     const resultado = await api.get("listall", {
       headers: {
         Authorization: `Bearer ${tokenParsed}`,
@@ -17,6 +15,24 @@ export async function buscaGastos() {
   } catch (error) {
     return {};
   }
+}
+
+export function useBuscaGastos(tokenParsed) {
+  const fetchData = async () => {
+    const resultado = await api.get("listall", {
+      headers: {
+        Authorization: `Bearer ${tokenParsed}`,
+      },
+    });
+
+    return resultado.data;
+  };
+
+  const { data, isLoading, refetch } = useQuery('gastos', fetchData, {
+    refetchInterval: 2000, 
+  });
+
+  return { data, isLoading, refetch };
 }
 
 export async function deletaGasto(id) {
